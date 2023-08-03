@@ -5,8 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LECO"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-
-    </Grid>
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}">
+    <StackPanel>
+        <materialDesign:Card Padding="32"
+                             Margin="16">            
+        </materialDesign:Card>
+        <Button Command="{Binding SelectFile}"
+                Content="Select File" />
+        <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" Text="{Binding FileName}"/>
+    </StackPanel>
 </Window>

@@ -23,6 +23,7 @@ namespace LECO
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new MainWindowViewModel();
         }
     }
 }
