@@ -34,5 +34,25 @@ namespace LECO.Tests
 
             Assert.AreEqual(24, result.Count);
         }
+
+        [TestMethod]
+        public async Task ShortestDistance_ShouldBeOptimal()
+        {
+            var test = new CityPermutationCalculator();
+            var result = test.CalculateCityPermutations(new List<City>
+            {
+                new City("CityA",0,0),
+                new City("CityB",3,4),
+                new City("CityC",3,5),
+                new City("CityD",3,6)
+            },
+            new CancellationToken());
+
+            var distanceCalculator = new CityDistanceCalculator();
+
+            var shortestDistance = await distanceCalculator.GetShortestDistanceAsync(result);
+
+            Assert.AreEqual(7,shortestDistance.TotalDistance);
+        }
     }
 }
