@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="LECO.Tests\**" />
+    <EmbeddedResource Remove="LECO.Tests\**" />
+    <None Remove="LECO.Tests\**" />
+    <Page Remove="LECO.Tests\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MaterialDesignThemes" Version="4.9.0" />
     <PackageReference Include="Prism.Core" Version="8.1.97" />
   </ItemGroup>
