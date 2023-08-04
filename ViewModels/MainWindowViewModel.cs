@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using LECO.Models;
+using Microsoft.Win32;
 using Prism.Commands;
 using Prism.Mvvm;
 using System;
@@ -9,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LECO
+namespace LECO.ViewModels
 {
     public class MainWindowViewModel : BindableBase
     {

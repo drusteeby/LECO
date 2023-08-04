@@ -1,4 +1,5 @@
-﻿using Prism.Mvvm;
+﻿using LECO.Models;
+using Prism.Mvvm;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;

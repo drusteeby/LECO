@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LECO", "LECO.csproj", "{7DE09243-5ECD-492A-B9D0-E36EDB1D25C4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LECO", "LECO.csproj", "{7DE09243-5ECD-492A-B9D0-E36EDB1D25C4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LECO.Tests", "LECO.Tests\LECO.Tests.csproj", "{7F6D37E9-D4B9-49BD-94ED-74DC34FE747C}"
 EndProject
