@@ -13,12 +13,24 @@
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}">
-    <StackPanel>
-        <materialDesign:Card Padding="32"
-                             Margin="16">            
-        </materialDesign:Card>
-        <Button Command="{Binding SelectFile}"
-                Content="Select File" />
-        <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" Text="{Binding FileName}"/>
-    </StackPanel>
+    <DockPanel>
+        <TextBlock DockPanel.Dock="Top" 
+                   Text="{Binding SelectedCity.Name}" />
+        <DockPanel DockPanel.Dock="Top"
+                   VerticalAlignment="Top">
+            <Button DockPanel.Dock="Left"
+                    Command="{Binding SelectFile}"
+                    Content="Select File" />
+            <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}"
+                       Text="{Binding FileName}"
+                       VerticalAlignment="Center" />
+        </DockPanel>
+       
+        <DataGrid DockPanel.Dock="Left"
+                  ItemsSource="{Binding LoadedCities}"
+                  SelectionMode="Single"
+                  SelectedItem="{Binding SelectedCity}" />
+
+
+    </DockPanel>
 </Window>
