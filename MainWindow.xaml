@@ -13,24 +13,140 @@
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}">
-    <DockPanel>
-        <TextBlock DockPanel.Dock="Top" 
-                   Text="{Binding SelectedCity.Name}" />
-        <DockPanel DockPanel.Dock="Top"
-                   VerticalAlignment="Top">
-            <Button DockPanel.Dock="Left"
-                    Command="{Binding SelectFile}"
-                    Content="Select File" />
-            <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}"
-                       Text="{Binding FileName}"
-                       VerticalAlignment="Center" />
+    <Window.Resources>
+        <Style TargetType="Button"
+               BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="OverridesDefaultStyle"
+                    Value="False" />
+            <Setter Property="Margin"
+                    Value="5" />
+        </Style>
+        <DataTemplate x:Key="CityTemplate">
+            <StackPanel Orientation="Horizontal"
+                        Margin="10">
+                <Ellipse
+                         Width="2" 
+                         Height="2"
+                         Fill="Orange" 
+                         Stroke="Black" 
+                         StrokeThickness="10" Margin="4"/>
+            </StackPanel>
+        </DataTemplate>
+
+
+        <DataTemplate x:Key="LineTemplate">
+            <StackPanel Orientation="Horizontal"
+                        Margin="10">
+                <TextBlock Text="{Binding Name}" />
+                <TextBox Width="100"
+                         Text="{Binding StringValue}"
+                         Margin="5, 0, 0, 0" />
+            </StackPanel>
+        </DataTemplate>
+        <local:CanvasItemTemplateSelector x:Key="CanvasItemTemplateSelector"
+                                          LineTemplate="{StaticResource LineTemplate}"
+                                          CityTemplate="{StaticResource CityTemplate}" />
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <DockPanel Grid.Column="0">
+            <TextBlock DockPanel.Dock="Top"
+                       Text="{Binding SelectedCity.Name}" />
+            <DockPanel DockPanel.Dock="Top"
+                       VerticalAlignment="Top">
+                <Button DockPanel.Dock="Bottom"
+                        Command="{Binding AddSelectedToDestinationCommand}"
+                        Content="Add City to Destination List" />
+                <Button DockPanel.Dock="Left"
+                        Command="{Binding SelectFile}"
+                        Content="Select File" />
+                <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}"
+                           Text="{Binding FileName, FallbackValue='C:\\Repos\\Data.txt'}"
+                           VerticalAlignment="Center" />
+
+            </DockPanel>
+
+            <DataGrid DockPanel.Dock="Left"
+                      ItemsSource="{Binding LoadedCities}"
+                      SelectionMode="Single"
+                      SelectedItem="{Binding SelectedCity}" />
+
+
         </DockPanel>
-       
-        <DataGrid DockPanel.Dock="Left"
-                  ItemsSource="{Binding LoadedCities}"
-                  SelectionMode="Single"
-                  SelectedItem="{Binding SelectedCity}" />
+        <DockPanel Grid.Column="1">
+            <DockPanel DockPanel.Dock="Top">
+                <Label DockPanel.Dock="Left"
+                       Content="Home City:"
+                       VerticalAlignment="Center"
+                       Margin="5"/>
+                <TextBlock DockPanel.Dock="Left" 
+                           Text="{Binding SelectedCity.Name, FallbackValue=Choose....}"
+                           VerticalAlignment="Center"/>
+                <Button DockPanel.Dock="Left" 
+                        Content="Set Home City"
+                        Command="{Binding SetHomeCityCommand}"
+                        VerticalAlignment="Center"
+                        Margin="5"/>
+            </DockPanel>
+            <ListBox DockPanel.Dock="Bottom" ItemsSource="{Binding SelectedCities}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </DockPanel>
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <ItemsControl ItemsSource="{Binding Path=ItemsToShowInCanvas}" 
+                          ItemTemplateSelector="{StaticResource CanvasItemTemplateSelector}">
+                <ItemsControl.ItemContainerStyle>
+                    <Style TargetType="ContentPresenter">
+                        <Setter Property="Canvas.Left"
+                                Value="{Binding Left}" />
+                        <Setter Property="Canvas.Top"
+                                Value="{Binding Top}" />
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>             
+            </ItemsControl>
 
-
-    </DockPanel>
+            <DockPanel Grid.Row="1">                
+                <StackPanel DockPanel.Dock="Bottom"
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Right">
+                    <Label Content="Total Distance: " />
+                    <Label Content="{Binding TotalDistance, FallbackValue=0.0}" />
+                </StackPanel>
+                <DataGrid ItemsSource="{Binding TravelItenerary}" />
+                <StackPanel Orientation="Horizontal">
+                    <Button Command="{Binding StartCalculationCommand}"
+                            Content="Start"/>
+                    <Label>
+                        <Label.Content>
+                            <TextBlock>
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{} {0} / {1} Evaluated">
+                                        <Binding Path="TotalCompleted" />
+                                        <Binding Path="TotalPermutations" />
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </Label.Content>
+                    </Label>
+                </StackPanel>
+            </DockPanel>
+        </Grid>
+    </Grid>
 </Window>
