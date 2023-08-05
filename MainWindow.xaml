@@ -25,11 +25,11 @@
             <StackPanel Orientation="Horizontal"
                         Margin="10">
                 <Ellipse
-                         Width="2" 
-                         Height="2"
+                         Width="20" 
+                         Height="20"
                          Fill="Orange" 
                          Stroke="Black" 
-                         StrokeThickness="10" Margin="4"/>
+                         StrokeThickness="1" Margin="4"/>
             </StackPanel>
         </DataTemplate>
 
@@ -49,9 +49,9 @@
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
-            <ColumnDefinition />
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <DockPanel Grid.Column="0">
             <TextBlock DockPanel.Dock="Top"
@@ -83,8 +83,8 @@
                        Content="Home City:"
                        VerticalAlignment="Center"
                        Margin="5"/>
-                <TextBlock DockPanel.Dock="Left" 
-                           Text="{Binding SelectedCity.Name, FallbackValue=Choose....}"
+                <TextBlock DockPanel.Dock="Left"
+                           Text="{Binding HomeCity.Name, FallbackValue=Choose....}"
                            VerticalAlignment="Center"/>
                 <Button DockPanel.Dock="Left" 
                         Content="Set Home City"
@@ -105,7 +105,7 @@
                 <RowDefinition />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <ItemsControl ItemsSource="{Binding Path=ItemsToShowInCanvas}" 
+            <ItemsControl ItemsSource="{Binding Path=MapItems}" 
                           ItemTemplateSelector="{StaticResource CanvasItemTemplateSelector}">
                 <ItemsControl.ItemContainerStyle>
                     <Style TargetType="ContentPresenter">
