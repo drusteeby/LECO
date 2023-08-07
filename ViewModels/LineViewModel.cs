@@ -23,8 +23,8 @@ namespace LECO.ViewModels
                 throw new ArgumentNullException(nameof(end));
             }
 
-            X1 = start.Point.X;
-            Y1 = start.Point.Y;
+            Left = X1 = start.Point.X;
+            Top = Y1 = start.Point.Y;
             X2 = end.Point.X;
             Y2 = end.Point.Y;
         }

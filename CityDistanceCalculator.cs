@@ -22,19 +22,46 @@ namespace LECO
             set => SetProperty(ref _numberProcessed, value);
         }
 
+        /// <summary>
+        /// Gets the shortest distance between a list of cites, starting and ending at the Home City
+        /// </summary>
+        /// <param name="HomeCity">City to start and end travel</param>
+        /// <param name="cities">List of cities to travel to</param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        public async Task<CalculatedPermutation> GetShortestDistanceAsync(City HomeCity, IList<City> cities, CancellationToken cancellationToken = default)
+        {
+            var permutations = CityPermutationCalculator.CalculateCityPermutations(cities, cancellationToken);
+
+            if (HomeCity == null) 
+            {
+                return await GetShortestDistanceAsync(permutations, cancellationToken);
+            }
+
+            //could also use LINQ here to not mutate the passed in list. Would have to test for performance differences.
+            //var newCityList = permutations.Select(list => list.Prepend(HomeCity).Append(HomeCity));
+            foreach(var cityList in permutations) 
+            {
+                cityList.Add(HomeCity);
+                cityList.Insert(0, HomeCity);
+            }
+
+            return await GetShortestDistanceAsync(permutations, cancellationToken);
+        }
+
         public async Task<CalculatedPermutation> GetShortestDistanceAsync(IList<IList<City>> permutations, CancellationToken cancellationToken = default)
         {
             var _calculatedDistances = new ConcurrentBag<CalculatedPermutation>();
-            await Parallel.ForEachAsync(permutations, async (list, cancellationToken) =>
+            await Parallel.ForEachAsync(permutations, cancellationToken, async (list, cancellationToken) =>
             {
                 try
                 {
-                    var calculationTask = Task.Factory.StartNew(() => _calculatedDistances.Add(new CalculatedPermutation(list, CalculateDistance(list, cancellationToken))), cancellationToken);
+                    await Task.Factory.StartNew(() => _calculatedDistances.Add(new CalculatedPermutation(list, CalculateDistance(list, cancellationToken))), cancellationToken); 
                     cancellationToken.ThrowIfCancellationRequested();
-                    await calculationTask;
                 }
                 finally
                 {
+
                     Interlocked.Increment(ref _numberProcessed);
                     RaisePropertyChanged(nameof(NumberProcessed));
                 }
@@ -43,7 +70,7 @@ namespace LECO
             return _calculatedDistances.Min();
         }
 
-        public double CalculateDistance(IList<City> list, CancellationToken cancellationToken = default)
+        public static double CalculateDistance(IList<City> list, CancellationToken cancellationToken = default)
         {
             if (list is null)
             {

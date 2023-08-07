@@ -15,6 +15,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Flat_Earth_illustration.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Flat_Earth_illustration.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AsyncDelegateCommand" Version="1.0.3" />
     <PackageReference Include="MaterialDesignThemes" Version="4.9.0" />
     <PackageReference Include="Prism.Core" Version="8.1.97" />
   </ItemGroup>

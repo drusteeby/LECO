@@ -11,18 +11,15 @@ namespace LECO
     //https://chadgolden.com/blog/finding-all-the-permutations-of-an-array-in-c-sharp
     public class CityPermutationCalculator
     {
-        public IList<IList<City>> CalculateCityPermutations(IEnumerable<City> list, CancellationToken cancellationToken)
+        public static IList<IList<City>> CalculateCityPermutations(IEnumerable<City> list, CancellationToken cancellationToken)
         {
             return Permute(list.ToArray(), cancellationToken);
         }
 
-        static IList<IList<City>> Permute(City[] nums, CancellationToken cancellationToken)
-        {
-            var list = new List<IList<City>>();
-            return DoPermute(nums, 0, nums.Length - 1, list, cancellationToken);
-        }
+        private static IList<IList<City>> Permute(City[] nums, CancellationToken cancellationToken) => 
+            DoPermute(nums, 0, nums.Length - 1, new List<IList<City>>(), cancellationToken);
 
-        static IList<IList<City>> DoPermute(City[] nums, int start, int end, IList<IList<City>> list, CancellationToken cancellationToken)
+        private static IList<IList<City>> DoPermute(City[] nums, int start, int end, IList<IList<City>> list, CancellationToken cancellationToken)
         {
             if (start == end)
             {
@@ -44,12 +41,7 @@ namespace LECO
             return list;
         }
 
-        static void Swap(ref City a, ref City b)
-        {
-            var temp = a;
-            a = b;
-            b = temp;
-        }
+        private static void Swap(ref City a, ref City b) => (b, a) = (a, b);
 
     }
 }

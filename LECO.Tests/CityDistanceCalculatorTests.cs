@@ -13,9 +13,7 @@ namespace LECO.Tests
         [TestMethod]
         public void DistanceBetweenTwoCities_ShouldEqualFive()
         {
-            var test = new CityDistanceCalculator();
-
-            var result = test.CalculateDistance(new List<City>
+            var result = CityDistanceCalculator.CalculateDistance(new List<City>
             {
                 new City("Gotham",0,0),
                 new City("St. Joeseph", 3,4)
@@ -28,9 +26,7 @@ namespace LECO.Tests
         [TestMethod]
         public void DistanceBetweenThreeCities_ShouldEqualTen()
         {
-            var test = new CityDistanceCalculator();
-
-            var result = test.CalculateDistance(new List<City>
+            var result = CityDistanceCalculator.CalculateDistance(new List<City>
             {
                 new City("Gotham",0,0),
                 new City("St. Joeseph", 3,4),
