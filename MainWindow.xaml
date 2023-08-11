@@ -108,7 +108,6 @@
                 <ItemsControl ItemsSource="{Binding Path=MapItems}"
                               ItemTemplateSelector="{StaticResource CanvasItemTemplateSelector}"
                               Background="Transparent">
-
                     <ItemsControl.Template>
                         <ControlTemplate TargetType="ItemsControl">
                             <Grid x:Name="container">
