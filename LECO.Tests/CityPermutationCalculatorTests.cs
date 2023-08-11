@@ -1,4 +1,3 @@
-using LECO;
 using LECO.Models;
 
 namespace LECO.Tests

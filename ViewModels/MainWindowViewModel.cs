@@ -3,15 +3,10 @@ using Microsoft.Win32;
 using Prism.Commands;
 using Prism.Mvvm;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
-using System.Printing;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace LECO.ViewModels
 {
