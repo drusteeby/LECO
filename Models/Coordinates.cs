@@ -5,7 +5,11 @@ namespace LECO.Models
 {
     public record Coordinates
     {
-        public Point Point { get; init; }
+        public Point Point 
+        { 
+            get; 
+            init; 
+        }
         public double Longitude => Point.X;
         public double Latitude => Point.Y;
 
